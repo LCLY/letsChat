@@ -17,7 +17,7 @@ import { CTX } from "../Store";
 const Dashboard = () => {
     const useStyles = makeStyles(theme => ({
         root: {
-            margin: "0 100px",
+            margin: "100px",
             padding: theme.spacing(3, 2),
             textAlign: "center",
         },
@@ -31,8 +31,18 @@ const Dashboard = () => {
             borderRight: "1px inset grey",
         },
         chatWindow: { width: "70%", height: "300px", padding: "20px" },
-        chatBox: { width: "85%" },
+        chatBox: {
+            width: "85%",
+        },
         button: { width: "15%" },
+        messengerLeft: {
+            marginLeft: "25%",
+            width: "auto",
+            backgroundColor: "rgba(211, 211, 211, 0.616)",
+            borderRadius: "5px",
+            paddingBottom: "1rem",
+        },
+        messengerRight: { width: "auto" },
     }));
     const classes = useStyles();
 
@@ -88,19 +98,23 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <div className={classes.flex}>
-                    <TextField
-                        label="Send a message"
-                        className={classes.chatBox}
-                        value={textValue}
-                        onChange={e => changeTextValue(e.target.value)}
-                    />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}
-                    >
-                        Primary
-                    </Button>
+                    <div className={classes.messengerLeft}>
+                        <TextField
+                            label="Send a message"
+                            className={classes.chatBox}
+                            value={textValue}
+                            onChange={e => changeTextValue(e.target.value)}
+                        />
+                    </div>
+                    <div className={classes.messengerRight}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            className={classes.button}
+                        >
+                            Send
+                        </Button>
+                    </div>
                 </div>
             </Paper>
         </div>
