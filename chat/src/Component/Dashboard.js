@@ -36,19 +36,18 @@ const Dashboard = () => {
         },
         button: { width: "15%" },
         messengerLeft: {
-            marginLeft: "25%",
-            width: "auto",
-            backgroundColor: "rgba(211, 211, 211, 0.616)",
+            marginLeft: "30%",
+            width: "40%",
             borderRadius: "5px",
-            paddingBottom: "1rem",
         },
         messengerRight: { width: "auto" },
     }));
     const classes = useStyles();
 
     //CTX Store
-    const [allChats] = React.useContext(CTX);
-    console.log({ allChats });
+    const { allChats, sendChatAction, user } = React.useContext(CTX);
+    console.log(user);
+
     const topics = Object.keys(allChats);
 
     // local state
@@ -57,66 +56,75 @@ const Dashboard = () => {
 
     return (
         <div>
-            <Paper className={classes.root}>
-                <Typography variant="h4" component="h4">
-                    Let's chat!
-                </Typography>
-                <Typography variant="h5" component="h5">
-                    {activeTopic}
-                </Typography>
-                <div className={classes.flex}>
-                    <div className={classes.topicsWindow}>
-                        <List>
-                            {topics.map(topic => (
-                                <ListItem
-                                    key={topic}
-                                    button
-                                    onClick={e =>
-                                        changeActiveTopic(e.target.innerText)
-                                    }
-                                >
-                                    <ListItemText primary={topic} />
-                                </ListItem>
+            <Container size="lg">
+                <Paper className={classes.root}>
+                    <Typography variant="h4" component="h4">
+                        Let's chat!
+                    </Typography>
+                    <Typography variant="h5" component="h5">
+                        {activeTopic}
+                    </Typography>
+                    <div className={classes.flex}>
+                        <div className={classes.topicsWindow}>
+                            <List>
+                                {topics.map(topic => (
+                                    <ListItem
+                                        key={topic}
+                                        button
+                                        onClick={e =>
+                                            changeActiveTopic(
+                                                e.target.innerText,
+                                            )
+                                        }
+                                    >
+                                        <ListItemText primary={topic} />
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </div>
+                        <div className={classes.chatWindow}>
+                            {allChats[activeTopic].map((chat, index) => (
+                                <div className={classes.flex} key={index}>
+                                    <Chip
+                                        label={chat.from}
+                                        className={classes.chip}
+                                    />
+                                    <Typography variant="body1">
+                                        {chat.msg}
+                                    </Typography>
+                                </div>
                             ))}
-                        </List>
+                        </div>
                     </div>
-                    <div className={classes.chatWindow}>
-                        {allChats[activeTopic].map((chat, index) => (
-                            <div className={classes.flex} key={index}>
-                                <Chip
-                                    label={chat.from}
-                                    className={classes.chip}
-                                />
-                                <Typography
-                                    variant="subtitle1"
-                                    component="subtitle1"
-                                >
-                                    {chat.msg}
-                                </Typography>
-                            </div>
-                        ))}
+                    <div className={classes.flex}>
+                        <div className={classes.messengerLeft}>
+                            <TextField
+                                label="Send a message"
+                                className={classes.chatBox}
+                                value={textValue}
+                                onChange={e => changeTextValue(e.target.value)}
+                            />
+                        </div>
+                        <div className={classes.messengerRight}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                className={classes.button}
+                                onClick={() => {
+                                    sendChatAction({
+                                        from: user,
+                                        msg: textValue,
+                                        topic: activeTopic,
+                                    });
+                                    changeTextValue("");
+                                }}
+                            >
+                                Send
+                            </Button>
+                        </div>
                     </div>
-                </div>
-                <div className={classes.flex}>
-                    <div className={classes.messengerLeft}>
-                        <TextField
-                            label="Send a message"
-                            className={classes.chatBox}
-                            value={textValue}
-                            onChange={e => changeTextValue(e.target.value)}
-                        />
-                    </div>
-                    <div className={classes.messengerRight}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                        >
-                            Send
-                        </Button>
-                    </div>
-                </div>
-            </Paper>
+                </Paper>
+            </Container>
         </div>
     );
 };
