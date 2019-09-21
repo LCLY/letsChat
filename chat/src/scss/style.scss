@@ -5,10 +5,21 @@
     width: 200px;
     height: auto;
     background-color: lightyellow;
+    align-items: center;
+    text-align: left;
 }
 
 .round {
     border-radius: 30px;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
+}
+
+.chatItems {
+    display: block;
+    margin-left: 1rem;
+}
+
+.chatItems__user {
+    font-weight: bolder;
 }

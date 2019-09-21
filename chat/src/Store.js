@@ -56,11 +56,9 @@ function reducer(state, action) {
 }
 
 let socket;
-
 function sendChatAction(value) {
     socket.emit("chat message", value);
 }
-
 export default function Store(props) {
     const [allChats, dispatch] = React.useReducer(reducer, initialState);
     if (!socket) {
@@ -69,6 +67,7 @@ export default function Store(props) {
             dispatch({ type: "RECEIVE_MESSAGE", payload: msg });
         });
     }
+
     const user = "user" + Math.random(100).toFixed(2);
 
     return (

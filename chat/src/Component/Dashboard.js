@@ -34,6 +34,8 @@ const Dashboard = () => {
             width: "70%",
             height: "auto",
             borderLeft: "1px inset grey",
+            height: "500px",
+            overflowY: "auto",
         },
         chatBox: {
             width: "85%",
@@ -103,19 +105,12 @@ const Dashboard = () => {
 
                         <div className={`${classes.chatWindow} `}>
                             {allChats[activeTopic].map((chat, index) => (
-                                <div
-                                    className={`${classes.flex} talk-bubble round`}
-                                    style={{ flexWrap: "wrap" }}
-                                    key={index}
-                                >
-                                    <div>
-                                        <Chip
-                                            label={chat.from}
-                                            className={classes.chip}
-                                        />
+                                <div className="talk-bubble round" key={index}>
+                                    <div className="chatItems chatItems__user">
+                                        {chat.from}
                                     </div>
 
-                                    <div>
+                                    <div className="chatItems">
                                         <Typography variant="body1">
                                             {chat.msg}
                                         </Typography>
