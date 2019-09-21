@@ -20,17 +20,21 @@ const Dashboard = () => {
             margin: "100px",
             padding: theme.spacing(3, 2),
             textAlign: "center",
+            backgroundColor: "rgba(109, 218, 233, 0.671)",
         },
         flex: {
             display: "flex",
-            alignItems: "center",
+            // alignItems: "center",
         },
         topicsWindow: {
             width: "30%",
-            height: "300px",
-            borderRight: "1px inset grey",
+            height: "100%",
         },
-        chatWindow: { width: "70%", height: "300px", padding: "20px" },
+        chatWindow: {
+            width: "70%",
+            height: "auto",
+            borderLeft: "1px inset grey",
+        },
         chatBox: {
             width: "85%",
         },
@@ -46,13 +50,27 @@ const Dashboard = () => {
 
     //CTX Store
     const { allChats, sendChatAction, user } = React.useContext(CTX);
-    console.log(user);
+    // console.log(user);
 
     const topics = Object.keys(allChats);
 
     // local state
     const [activeTopic, changeActiveTopic] = useState(topics[0]);
     const [textValue, changeTextValue] = useState("");
+
+    const handleKeyDown = e => {
+        if (e.key === "Enter") {
+            if (e.target.value !== "") {
+                sendChatAction({
+                    from: user,
+                    msg: textValue,
+                    topic: activeTopic,
+                });
+            }
+
+            changeTextValue("");
+        }
+    };
 
     return (
         <div>
@@ -82,16 +100,26 @@ const Dashboard = () => {
                                 ))}
                             </List>
                         </div>
-                        <div className={classes.chatWindow}>
+
+                        <div className={`${classes.chatWindow} `}>
                             {allChats[activeTopic].map((chat, index) => (
-                                <div className={classes.flex} key={index}>
-                                    <Chip
-                                        label={chat.from}
-                                        className={classes.chip}
-                                    />
-                                    <Typography variant="body1">
-                                        {chat.msg}
-                                    </Typography>
+                                <div
+                                    className={`${classes.flex} talk-bubble round`}
+                                    style={{ flexWrap: "wrap" }}
+                                    key={index}
+                                >
+                                    <div>
+                                        <Chip
+                                            label={chat.from}
+                                            className={classes.chip}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <Typography variant="body1">
+                                            {chat.msg}
+                                        </Typography>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -103,6 +131,7 @@ const Dashboard = () => {
                                 className={classes.chatBox}
                                 value={textValue}
                                 onChange={e => changeTextValue(e.target.value)}
+                                onKeyDown={handleKeyDown}
                             />
                         </div>
                         <div className={classes.messengerRight}>
@@ -111,11 +140,13 @@ const Dashboard = () => {
                                 color="primary"
                                 className={classes.button}
                                 onClick={() => {
-                                    sendChatAction({
-                                        from: user,
-                                        msg: textValue,
-                                        topic: activeTopic,
-                                    });
+                                    if (textValue !== "") {
+                                        sendChatAction({
+                                            from: user,
+                                            msg: textValue,
+                                            topic: activeTopic,
+                                        });
+                                    }
                                     changeTextValue("");
                                 }}
                             >
