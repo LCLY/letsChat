@@ -1,3 +1,14 @@
-.root {
-    background-color: rgba(211, 211, 211, 0.616);
+.talk-bubble {
+    margin: 0 0 1rem 1rem;
+    display: block;
+    position: relative;
+    width: 200px;
+    height: auto;
+    background-color: lightyellow;
+}
+
+.round {
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
 }
