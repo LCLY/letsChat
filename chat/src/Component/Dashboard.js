@@ -4,20 +4,18 @@ import {
     makeStyles,
     Typography,
     List,
-    ListItem,
-    ListItemText,
-    Chip,
     Button,
     TextField,
     Container,
 } from "@material-ui/core";
 
 import { CTX } from "../Store";
+import ListItems from "./ListItems";
 
 const Dashboard = () => {
     const useStyles = makeStyles(theme => ({
         root: {
-            margin: "100px",
+            margin: "20px 100px 0 100px",
             padding: theme.spacing(3, 2),
             textAlign: "center",
             backgroundColor: "rgba(109, 218, 233, 0.671)",
@@ -29,10 +27,10 @@ const Dashboard = () => {
         topicsWindow: {
             width: "30%",
             height: "100%",
+            marginRight: "1rem",
         },
         chatWindow: {
             width: "70%",
-            height: "auto",
             borderLeft: "1px inset grey",
             height: "500px",
             overflowY: "auto",
@@ -59,6 +57,8 @@ const Dashboard = () => {
     // local state
     const [activeTopic, changeActiveTopic] = useState(topics[0]);
     const [textValue, changeTextValue] = useState("");
+    const [color, changeColor] = useState(false);
+    const [currentIndex, changeCurrentIndex] = useState(0);
 
     const handleKeyDown = e => {
         if (e.key === "Enter") {
@@ -78,8 +78,15 @@ const Dashboard = () => {
         <div>
             <Container size="lg">
                 <Paper className={classes.root}>
-                    <Typography variant="h4" component="h4">
-                        Let's chat!
+                    <Typography
+                        variant="h4"
+                        component="h4"
+                        style={{
+                            backgroundColor: "white",
+                            padding: "24px 16px",
+                        }}
+                    >
+                        Let's Chat
                     </Typography>
                     <Typography variant="h5" component="h5">
                         {activeTopic}
@@ -87,25 +94,26 @@ const Dashboard = () => {
                     <div className={classes.flex}>
                         <div className={classes.topicsWindow}>
                             <List>
-                                {topics.map(topic => (
-                                    <ListItem
-                                        key={topic}
-                                        button
-                                        onClick={e =>
+                                {topics.map((topic, index) => (
+                                    <ListItems
+                                        key={index}
+                                        topic={topic}
+                                        currentIndex={index}
+                                        callback={e =>
                                             changeActiveTopic(
                                                 e.target.innerText,
+                                                changeColor(true),
                                             )
                                         }
-                                    >
-                                        <ListItemText primary={topic} />
-                                    </ListItem>
+                                        color={color}
+                                    />
                                 ))}
                             </List>
                         </div>
 
                         <div className={`${classes.chatWindow} `}>
                             {allChats[activeTopic].map((chat, index) => (
-                                <div className="talk-bubble round" key={index}>
+                                <div className="talk-bubble round " key={index}>
                                     <div className="chatItems chatItems__user">
                                         {chat.from}
                                     </div>
