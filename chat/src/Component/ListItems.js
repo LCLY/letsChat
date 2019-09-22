@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { ListItem, ListItemText } from "@material-ui/core";
 
-const ListItems = ({ topic, callback, color, currentIndex }) => {
-    console.log(currentIndex);
-
+const ListItems = ({ topic, callback, currIndex, topicIndex }) => {
     return (
         <>
-            {color ? (
+            {currIndex === topicIndex ? (
                 <ListItem
                     style={{
                         backgroundColor: "rgb(105, 154, 219)",
@@ -17,7 +15,13 @@ const ListItems = ({ topic, callback, color, currentIndex }) => {
                     <ListItemText primary={topic} />
                 </ListItem>
             ) : (
-                <ListItem key={topic} button onClick={callback}>
+                <ListItem
+                    style={{
+                        backgroundColor: "",
+                    }}
+                    button
+                    onClick={callback}
+                >
                     <ListItemText primary={topic} />
                 </ListItem>
             )}

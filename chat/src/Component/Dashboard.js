@@ -97,15 +97,15 @@ const Dashboard = () => {
                                 {topics.map((topic, index) => (
                                     <ListItems
                                         key={index}
+                                        topicIndex={index}
                                         topic={topic}
-                                        currentIndex={index}
-                                        callback={e =>
+                                        currIndex={currentIndex}
+                                        callback={e => {
                                             changeActiveTopic(
                                                 e.target.innerText,
-                                                changeColor(true),
-                                            )
-                                        }
-                                        color={color}
+                                            );
+                                            changeCurrentIndex(index);
+                                        }}
                                     />
                                 ))}
                             </List>
