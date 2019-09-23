@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ListItem, ListItemText } from "@material-ui/core";
 
 const ListItems = ({ topic, callback, currIndex, topicIndex }) => {
