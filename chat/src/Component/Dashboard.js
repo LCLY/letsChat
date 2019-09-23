@@ -11,6 +11,7 @@ import {
 
 import { CTX } from "../Store";
 import ListItems from "./ListItems";
+import Input from "./Input";
 
 const Dashboard = () => {
     const useStyles = makeStyles(theme => ({
@@ -26,8 +27,9 @@ const Dashboard = () => {
         },
         topicsWindow: {
             width: "30%",
-            height: "100%",
+            height: "400px",
             marginRight: "1rem",
+            overflowY: "auto",
         },
         chatWindow: {
             width: "70%",
@@ -44,11 +46,12 @@ const Dashboard = () => {
             width: "70%",
         },
         chatBox: {
+            marginTop: "1rem",
             width: "85%",
         },
-        button: { width: "15%" },
+        button: { width: "15%", marginTop: "1.5rem" },
         messengerLeft: {
-            marginLeft: "30%",
+            marginLeft: "5%",
             width: "60%",
             borderRadius: "5px",
         },
@@ -57,8 +60,10 @@ const Dashboard = () => {
     const classes = useStyles();
 
     //CTX Store
-    const { allChats, sendChatAction, user } = React.useContext(CTX);
-    // console.log(user);
+    const { allChats, sendChatAction, user, getUsername } = React.useContext(
+        CTX,
+    );
+    console.log("user in dashboard", user);
 
     const topics = Object.keys(allChats);
 
@@ -71,11 +76,19 @@ const Dashboard = () => {
     const handleKeyDown = e => {
         if (e.key === "Enter") {
             if (e.target.value !== "") {
-                sendChatAction({
-                    from: user,
-                    msg: textValue,
-                    topic: activeTopic,
-                });
+                if (!user) {
+                    sendChatAction({
+                        from: getUsername(),
+                        msg: textValue,
+                        topic: activeTopic,
+                    });
+                } else {
+                    sendChatAction({
+                        from: user,
+                        msg: textValue,
+                        topic: activeTopic,
+                    });
+                }
             }
 
             changeTextValue("");
@@ -113,7 +126,7 @@ const Dashboard = () => {
                             <List>
                                 {topics.map((topic, index) => (
                                     <ListItems
-                                        key={index}
+                                        key={topic}
                                         topicIndex={index}
                                         topic={topic}
                                         currIndex={currentIndex}
@@ -143,7 +156,7 @@ const Dashboard = () => {
                                     {chat.msg.length > 50 ? (
                                         <div
                                             className="talk-bubble round "
-                                            key={index}
+                                            key={chat}
                                             style={{
                                                 width: "90%",
                                             }}
@@ -164,7 +177,7 @@ const Dashboard = () => {
                                     ) : (
                                         <div
                                             className="talk-bubble round "
-                                            key={index}
+                                            key={chat}
                                             style={{
                                                 width: "auto",
                                             }}
@@ -188,6 +201,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <div className={classes.flex}>
+                        <Input />
                         <div className={classes.messengerLeft}>
                             <TextField
                                 label="Send a message"
@@ -204,11 +218,19 @@ const Dashboard = () => {
                                 className={classes.button}
                                 onClick={() => {
                                     if (textValue !== "") {
-                                        sendChatAction({
-                                            from: user,
-                                            msg: textValue,
-                                            topic: activeTopic,
-                                        });
+                                        if (!user) {
+                                            sendChatAction({
+                                                from: getUsername(),
+                                                msg: textValue,
+                                                topic: activeTopic,
+                                            });
+                                        } else {
+                                            sendChatAction({
+                                                from: user,
+                                                msg: textValue,
+                                                topic: activeTopic,
+                                            });
+                                        }
                                     }
                                     changeTextValue("");
                                 }}
