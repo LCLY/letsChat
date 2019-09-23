@@ -51,6 +51,15 @@ let socket;
 function sendChatAction(value) {
     socket.emit("chat message", value);
 }
+let user;
+function newUsername(username) {
+    user = username;
+}
+
+function getUsername() {
+    return user;
+}
+
 export default function Store(props) {
     const [allChats, dispatch] = React.useReducer(reducer, initialState);
     if (!socket) {
@@ -60,10 +69,10 @@ export default function Store(props) {
         });
     }
 
-    const user = "user" + Math.random(100).toFixed(2);
-
     return (
-        <CTX.Provider value={{ allChats, sendChatAction, user }}>
+        <CTX.Provider
+            value={{ allChats, sendChatAction, user, newUsername, getUsername }}
+        >
             {props.children}
         </CTX.Provider>
     );
