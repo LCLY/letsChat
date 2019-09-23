@@ -21,16 +21,8 @@ state:{
 export const CTX = React.createContext();
 
 const initialState = {
-    general: [
-        { from: "Jason", msg: "Hi 1" },
-        { from: "Henry", msg: "Hi 2" },
-        { from: "David", msg: "Hi 3" },
-    ],
-    topic: [
-        { from: "Joey", msg: "Hi 111" },
-        { from: "Yang", msg: "Hi 222" },
-        { from: "Hey", msg: "Hi 333" },
-    ],
+    General: [],
+    Math: [],
 };
 
 function reducer(state, action) {
