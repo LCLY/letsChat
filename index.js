@@ -16,8 +16,6 @@ io.on("connection", function(socket) {
     });
 });
 
-app.use(express.static(path.join(__dirname, "client/build")));
-
 aapp.get("*", (req, res) => {
     res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
