@@ -22,5 +22,3 @@ app.get("/", function(req, res) {
 http.listen(PORT, function() {
     console.log("listening on *:5000");
 });
-
-// app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
