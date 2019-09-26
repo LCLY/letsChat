@@ -15,8 +15,8 @@ io.on("connection", function(socket) {
     });
 });
 
-http.listen(5000, function() {
+http.listen(PORT, function() {
     console.log("listening on *:5000");
 });
 
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+// app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
