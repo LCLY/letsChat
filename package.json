@@ -1,42 +1,23 @@
 {
-    "name": "chat",
-    "version": "0.1.0",
-    "private": true,
-    "engines": {
-        "npm": "6.9.2",
-        "node": "8.12.0"
-    },
-    "dependencies": {
-        "@material-ui/core": "^4.4.2",
-        "express": "^4.17.1",
-        "react": "^16.9.0",
-        "react-dom": "^16.9.0",
-        "react-scripts": "3.1.1",
-        "socket.io": "^2.3.0"
-    },
+    "name": "letschat",
+    "version": "1.0.0",
+    "description": "A chat app that makes use of web socket and Node js with React as front end",
+    "main": "index.js",
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "dev": "concurrently \"npm run start\" \"node Server/index.js\""
+        "start": "node index.js"
     },
-    "eslintConfig": {
-        "extends": "react-app"
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LCLY/letsChat.git"
     },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/LCLY/letsChat/issues"
     },
-    "devDependencies": {
-        "concurrently": "^4.1.2"
+    "homepage": "https://github.com/LCLY/letsChat#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "socket.io": "^2.3.0"
     }
 }
