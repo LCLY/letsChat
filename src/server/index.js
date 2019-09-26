@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 8080;
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "../../build")));
 
+app.get("/", (req, res, next) => res.sendfile(__dirname + "./index.html"));
+
 io.on("connection", function(socket) {
     console.log("a user connected");
     socket.on("chat message", function(msg) {
@@ -20,8 +22,6 @@ io.on("connection", function(socket) {
     });
 });
 
-app.get("/", (req, res, next) => res.sendfile(__dirname + "./index.html"));
-
 http.listen(PORT, function() {
-    console.log("listening on *:5000");
+    console.log("listening on *:8000");
 });

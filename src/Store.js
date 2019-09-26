@@ -63,7 +63,7 @@ function getUsername() {
 export default function Store(props) {
     const [allChats, dispatch] = React.useReducer(reducer, initialState);
     if (!socket) {
-        socket = io(":3001");
+        socket = io(":8080");
         socket.on("chat message", function(msg) {
             dispatch({ type: "RECEIVE_MESSAGE", payload: msg });
         });
