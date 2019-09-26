@@ -1,4 +1,5 @@
 var app = require("express")();
+var path = require("path");
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 const PORT = process.env.PORT || 5000;
@@ -15,8 +16,10 @@ io.on("connection", function(socket) {
     });
 });
 
-app.get("/", function(req, res) {
-    res.send("Hello world");
+app.use(express.static(path.join(__dirname, "client/build")));
+
+aapp.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
 http.listen(PORT, function() {

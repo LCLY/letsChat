@@ -1,6 +1,6 @@
 {
-    "name": "chat",
-    "version": "0.1.0",
+    "name": "client",
+    "version": "1.0.0",
     "private": true,
     "engines": {
         "npm": "6.9.2",
