@@ -1,8 +1,12 @@
-var app = require("express")();
+const app = express();
 var path = require("path");
+const express = require("express");
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, "../../build")));
 
 io.on("connection", function(socket) {
     console.log("a user connected");
@@ -16,9 +20,7 @@ io.on("connection", function(socket) {
     });
 });
 
-// app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname + "/client/build/index.html"));
-// });
+app.get("/", (req, res, next) => res.sendfile(__dirname + "./index.html"));
 
 http.listen(PORT, function() {
     console.log("listening on *:5000");
