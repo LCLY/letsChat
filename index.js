@@ -16,9 +16,9 @@ io.on("connection", function(socket) {
     });
 });
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname + "/client/build/index.html"));
-});
+// app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname + "/client/build/index.html"));
+// });
 
 http.listen(PORT, function() {
     console.log("listening on *:5000");
