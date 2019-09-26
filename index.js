@@ -15,6 +15,10 @@ io.on("connection", function(socket) {
     });
 });
 
+app.get("/", function(req, res) {
+    res.send("Hello world");
+});
+
 http.listen(PORT, function() {
     console.log("listening on *:5000");
 });
